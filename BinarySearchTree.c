@@ -37,9 +37,54 @@ struct node *insert(struct node *node, int data){
 }
 
 
+struct node *minvalue (struct node *node){
+    struct node *current=node;
+    while(current && current->left!=NULL){
+        current=current->left;
+    }
+    return current;
+} 
+
+
+
+struct node *deletenode(struct node *root, int key){
+    if (root==NULL){
+        return root;
+    }
+    
+    if(key<root->data){
+        root->left=deletenode(root->left,key);
+    }
+    else if(key>root->data){
+        root->right=deletenode(root->right,key);
+    }
+    
+    else {
+        if(root->right==NULL){
+            struct node *temp=root->left;
+            free(root);
+            return temp;
+        }
+        else if(root->left==NULL){
+            struct node *temp=root->right;
+            free(root);
+            return temp;
+        }
+        
+        struct node *temp=minvalue(root->right);
+        root->data=temp->data;
+        deletenode(root->right,temp->data);
+    }
+    
+    return root;
+}
+
+
+
+
 int main(){
     
-  struct node *root=NULL;
+    struct node *root=NULL;
     root=insert(root,8);
   root = insert(root, 3);
   root = insert(root, 1);
@@ -48,4 +93,13 @@ int main(){
   root = insert(root, 10);
   root = insert(root, 14);
   root = insert(root, 4);
+  
+  printf("The inorder traversal is");
+  inorder(root);
+  
+  printf("After deleting 10");
+  root= deletenode(root,10);
+  printf("the inorder of deleting is");
+  inorder(root);
+    
 }
