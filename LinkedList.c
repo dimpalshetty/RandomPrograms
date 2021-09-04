@@ -116,11 +116,24 @@ void rear_del(){
    }
 }
 
+void reverse(){
+NODE prev, cur, next;
+cur=first;
+while(cur!=NULL){
+    next=cur->next;
+    cur->next=prev;
+    prev=cur;
+    cur=next; 
+}
+first=prev;
+
+}
+
 int main(){
  int choice, n, i,j;
  while(1)
  {
-     printf("\n1.Insert At Beginning\n 2.Front Deletion\n 3.Display\n 4.Rear Insert At End\n 5.Rear Deletion\n 6.Insert After ");
+     printf("\n1.Insert At Beginning\n 2.Front Deletion\n 3.Display\n 4.Rear Insert At End\n 5.Rear Deletion\n 6.Insert After 7.Reverse a linked list ");
      scanf("%d", &choice);
      switch(choice){
     
@@ -136,8 +149,6 @@ int main(){
             break;
     case 4: printf("enter number of elements"); 
     scanf("%d", &n);
-            
-             
             for(i=0;i<n;i++){
             rear_insert();
             }
@@ -148,8 +159,11 @@ int main(){
             scanf("%d", &j);
             insert_after(j);
             break;
+    case 7: printf("Reverse a linked list");
+            reverse();
+            break;        
 
-    case 7: return;
+    // case 8: return;
     default: printf("wrong");                        
 
  }
