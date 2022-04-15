@@ -12,7 +12,7 @@ while ch in c:
     print (ch)
     if ch=='(':
         stack.append(ch)       
-    elif isalnum(ch):
+    elif ch.isalnum():
         postfix.append(ch)
     elif ch==')':
         popped=stack.pop()    
